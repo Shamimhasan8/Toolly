@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toolly Studio — Instant Developer Utilities & AI Workspace</title>
+    <meta name="description" content="Explore 37+ free interactive developer and AI utilities right in your browser: JSON formatters, Base64 encoder, QR codes, password generator, text converters, and calculators.">
+    <meta name="theme-color" content="#B0DB9C">
+    <link rel="icon" href="logo/Toolly_logo.png" type="image/png">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        (function() {
+            var theme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+</head>
+<body>
+    <a class="skip-link" href="#mainContent">Skip to main content</a>
+    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Open sidebar">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo-container">
+                    <img src="logo/Toolly.jpg" alt="Toolly Logo" class="logo" width="64" height="64" loading="eager">
+                </div>
+                <h2>Toolly</h2>
+            </div>
+            
+            <!-- Studio Categories Navigation -->
+            <nav class="sidebar-categories">
+                <h3>Studio Categories</h3>
+                <ul id="studioCategoryList">
+                    <li class="active" data-category="all">
+                        <span class="cat-label"><i class="fas fa-border-all"></i> All Utilities</span>
+                        <span class="cat-count">37</span>
+                    </li>
+                    <li data-category="text">
+                        <span class="cat-label"><i class="fas fa-font"></i> Text Tools</span>
+                        <span class="cat-count">6</span>
+                    </li>
+                    <li data-category="developer">
+                        <span class="cat-label"><i class="fas fa-code"></i> Developer</span>
+                        <span class="cat-count">7</span>
+                    </li>
+                    <li data-category="converters">
+                        <span class="cat-label"><i class="fas fa-arrows-rotate"></i> Converters</span>
+                        <span class="cat-count">6</span>
+                    </li>
+                    <li data-category="calculators">
+                        <span class="cat-label"><i class="fas fa-calculator"></i> Calculators</span>
+                        <span class="cat-count">6</span>
+                    </li>
+                    <li data-category="generators">
+                        <span class="cat-label"><i class="fas fa-wand-magic-sparkles"></i> Generators</span>
+                        <span class="cat-count">4</span>
+                    </li>
+                    <li data-category="web-seo">
+                        <span class="cat-label"><i class="fas fa-globe"></i> Web & SEO</span>
+                        <span class="cat-count">3</span>
+                    </li>
+                    <li data-category="ai">
+                        <span class="cat-label"><i class="fas fa-brain"></i> AI Assistants</span>
+                        <span class="cat-count">5</span>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Global Site Navigation -->
+            <nav class="sidebar-categories sidebar-nav">
+                <h3>Navigation</h3>
+                <ul id="navList">
+                    <li><a href="index.html" class="sidebar-nav-link"><i class="fas fa-home sidebar-nav-icon"></i>Home Directory</a></li>
+                    <li class="active"><a href="studio.html" class="sidebar-nav-link studio-highlight"><i class="fas fa-cube sidebar-nav-icon"></i>Toolly Studio <span class="nav-badge-pill">App</span></a></li>
+                    <li><a href="learn-ai.html" class="sidebar-nav-link"><i class="fas fa-graduation-cap sidebar-nav-icon"></i>Learn AI</a></li>
+                    <li><a href="about.html" class="sidebar-nav-link"><i class="fas fa-info-circle sidebar-nav-icon"></i>About Toolly</a></li>
+                    <li><a href="index.html#submit-tool" class="sidebar-nav-link"><i class="fas fa-plus-circle sidebar-nav-icon"></i>Submit a Tool</a></li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-about">
+                <h3>About Toolly Studio</h3>
+                <p>An instant browser workspace featuring 37 developer utilities, converters, calculators, and AI assistants. 100% client-side & private.</p>
+                <div class="copyright">© 2026 Toolly. All rights reserved.</div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent" tabindex="-1">
+            <!-- Compact Studio Hero -->
+            <section class="studio-hero">
+                <div class="studio-hero-badge">
+                    <span class="studio-pulse"></span>
+                    <span>37 Free Browser Utilities</span>
+                </div>
+                <h1 class="studio-hero-title">Toolly Studio</h1>
+                <p class="studio-hero-subtitle">Fast, client-side utilities for text formatting, encoding, data conversions, calculations, and AI assistance.</p>
+                
+                <div class="hero-stats" style="margin-bottom: 0;">
+                    <div class="hero-stat-item">
+                        <span class="hero-stat-number">37</span>
+                        <span class="hero-stat-label">Utilities</span>
+                    </div>
+                    <div class="hero-stat-divider"></div>
+                    <div class="hero-stat-item">
+                        <span class="hero-stat-number">7</span>
+                        <span class="hero-stat-label">Categories</span>
+                    </div>
+                    <div class="hero-stat-divider"></div>
+                    <div class="hero-stat-item">
+                        <span class="hero-stat-number">100%</span>
+                        <span class="hero-stat-label">Client-Side</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Search & Filter Bar -->
+            <header class="main-header">
+                <div class="main-header-actions">
+                    <div class="search-container">
+                        <input type="text" id="studioSearchInput" placeholder="Search utilities (e.g. JSON, Base64, QR, Hash, UUID, Units...)" aria-label="Search Studio Utilities">
+                        <button type="button" id="clearSearchBtn" class="search-clear-btn" aria-label="Clear search" title="Clear search" hidden>
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <select id="studioSortSelect" aria-label="Sort utilities">
+                        <option value="default">Default Order</option>
+                        <option value="name">Sort by Name (A-Z)</option>
+                        <option value="category">Sort by Category</option>
+                    </select>
+                    <span id="studioCounter" class="tools-counter" role="status" aria-live="polite">Showing 37 utilities</span>
+                </div>
+            </header>
+
+            <!-- Quick Category Pills -->
+            <div class="hero-quick-categories" id="quickCatsBar" aria-label="Quick categories" style="margin-bottom: 1.5rem;">
+                <button class="category-pill active" data-cat="all" aria-pressed="true">All (37)</button>
+                <button class="category-pill" data-cat="text">Text (6)</button>
+                <button class="category-pill" data-cat="developer">Developer (7)</button>
+                <button class="category-pill" data-cat="converters">Converters (6)</button>
+                <button class="category-pill" data-cat="calculators">Calculators (6)</button>
+                <button class="category-pill" data-cat="generators">Generators (4)</button>
+                <button class="category-pill" data-cat="web-seo">Web & SEO (3)</button>
+                <button class="category-pill" data-cat="ai">AI Assistants (5)</button>
+            </div>
+
+            <!-- Active Tool Workspace (Rendered when a tool is selected) -->
+            <div class="studio-workspace-container" id="studioWorkspace" style="display: none;">
+                <div class="studio-workspace-topbar">
+                    <button class="studio-back-action-btn" id="wsCloseBtn">
+                        <i class="fas fa-arrow-left"></i> Back to Utilities
+                    </button>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div class="studio-tool-icon-chip" id="wsIcon"><i class="fas fa-wrench"></i></div>
+                        <div>
+                            <h2 style="margin: 0; font-size: 1.3rem; font-weight: 800; color: var(--text-color);" id="wsTitle">Tool Name</h2>
+                            <p style="margin: 2px 0 0; font-size: 0.85rem; color: var(--muted-text);" id="wsDesc">Tool description.</p>
+                        </div>
+                    </div>
+                    <span class="studio-tool-category-badge" id="wsCatBadge">DEVELOPER</span>
+                </div>
+                <!-- Dynamic Interactive Workspace Area -->
+                <div id="wsToolContent"></div>
+            </div>
+
+            <!-- Tools Grid Section -->
+            <section class="tools-catalog-section" id="toolsCatalogSection">
+                <div class="tools-grid" id="studioToolsGrid">
+                    <!-- Cards populated via studio.js -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Toolly</h3>
+                <p>Toolly is your comprehensive directory and utility suite for developers, creators, and AI enthusiasts.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Directory Home</a></li>
+                    <li><a href="studio.html">Toolly Studio</a></li>
+                    <li><a href="learn-ai.html">Learn AI</a></li>
+                    <li><a href="about.html">About Toolly</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <div class="social-links">
+                    <a href="https://x.com/Toolly_" aria-label="Twitter"><i class="fab fa-twitter"></i></a> 
+                    <a href="https://www.linkedin.com/company/toolly8/" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/AdilShamim8/Toolly" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Toolly. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- QR Code Library for QR generator -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="studio.js"></script>
+</body>
+</html>

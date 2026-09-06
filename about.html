@@ -37,6 +37,12 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
     <link rel="icon" href="logo/Toolly_logo.png" type="image/png">
+    <script>
+        (function() {
+            var theme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
     
     <style>
         /* About Page Specific Styles */
@@ -344,14 +350,14 @@
                 </div>
                 <h2>Toolly</h2>
             </div>
-            <nav class="sidebar-categories">
+            <nav class="sidebar-categories sidebar-nav">
                 <h3>Navigation</h3>
                 <ul id="navList">
-                    <li><a href="learn-ai.html" class="sidebar-nav-link">Learn AI</a></li>
-                    <li><a href="https://toollystudio.streamlit.app/" target="_blank" rel="noopener noreferrer" class="sidebar-nav-link">Toolly Studio</a></li>
-                    <li><a href="index.html" class="sidebar-nav-link">Home</a></li>
-                    <li class="active"><a href="about.html" class="sidebar-nav-link">About</a></li>
-                    <li><a href="index.html#submit-tool" class="sidebar-nav-link">Submit a Tool</a></li>
+                    <li><a href="index.html" class="sidebar-nav-link"><i class="fas fa-home sidebar-nav-icon"></i>Home Directory</a></li>
+                    <li><a href="studio.html" class="sidebar-nav-link studio-highlight"><i class="fas fa-cube sidebar-nav-icon"></i>Toolly Studio <span class="nav-badge-pill">App</span></a></li>
+                    <li><a href="learn-ai.html" class="sidebar-nav-link"><i class="fas fa-graduation-cap sidebar-nav-icon"></i>Learn AI</a></li>
+                    <li class="active"><a href="about.html" class="sidebar-nav-link"><i class="fas fa-info-circle sidebar-nav-icon"></i>About Toolly</a></li>
+                    <li><a href="index.html#submit-tool" class="sidebar-nav-link"><i class="fas fa-plus-circle sidebar-nav-icon"></i>Submit a Tool</a></li>
                 </ul>
             </nav>
             <div class="sidebar-about">
@@ -374,7 +380,7 @@
             <section class="about-section">
                 <h2><i class="fas fa-bullseye"></i> Our Mission</h2>
                 <p>At Toolly, we believe that powerful AI tools should be accessible to everyone. Our mission is to provide a comprehensive, easy-to-navigate directory of AI tools that empowers individuals and businesses to discover the perfect solutions for their needs.</p>
-                <p>We carefully curate and categorize over 350+ AI tools across 15+ categories, from chatbots and image generators to productivity apps and developer tools. Every tool in our directory is vetted for quality, functionality, and user value.</p>
+                <p>We carefully curate and categorize over 530+ AI tools across 15+ categories, from chatbots and image generators to productivity apps and developer tools. Every tool in our directory is vetted for quality, functionality, and user value.</p>
                 <div class="values-grid">
                     <div class="value-card">
                         <div class="value-icon"><i class="fas fa-users"></i></div>
@@ -468,7 +474,7 @@
             <section class="about-section">
                 <h2><i class="fas fa-star"></i> Key Features</h2>
                 <ul>
-                    <li><strong>350+ Curated AI Tools:</strong> From ChatGPT and Midjourney to niche productivity apps, we cover the entire AI tools landscape</li>
+                    <li><strong>530+ Curated AI Tools:</strong> From ChatGPT and Midjourney to niche productivity apps, we cover the entire AI tools landscape</li>
                     <li><strong>15+ Categories:</strong> Organized into logical categories like Chatbots, Image Generation, Video, Audio, Developer Tools, Productivity, and more</li>
                     <li><strong>Smart Search:</strong> Find tools instantly by name, description, or tags - all processed locally in your browser</li>
                     <li><strong>Multiple Views:</strong> Switch between grid and list view to match your browsing preference</li>
@@ -504,6 +510,38 @@
             </section>
         </main>
     </div>
+    
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Toolly</h3>
+                <p>Toolly is your comprehensive directory of AI tools to enhance productivity, creativity, and efficiency.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home Directory</a></li>
+                    <li><a href="studio.html">Toolly Studio</a></li>
+                    <li><a href="learn-ai.html">Learn AI</a></li>
+                    <li><a href="index.html#submit-tool">Submit a Tool</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="mailto:info@toolly.tech" aria-label="Email Toolly at info@toolly.tech">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <div class="social-links">
+                    <a href="https://x.com/Toolly_" aria-label="Twitter"><i class="fab fa-twitter"></i></a> 
+                    <a href="https://www.linkedin.com/company/toolly8/" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/AdilShamim8/Toolly" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Toolly. All rights reserved.</p>
+        </div>
+    </footer>
     
     <!-- Back to Top Button -->
     <button class="back-to-top" id="backToTop" aria-label="Back to top">

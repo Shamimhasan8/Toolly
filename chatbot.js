@@ -4,6 +4,13 @@ const CHATBOT_DEBUG = window.location.hostname === 'localhost' || localStorage.g
 const chatbotDebugLog = (...args) => { if (CHATBOT_DEBUG) console.log(...args); };
 const chatbotDebugWarn = (...args) => { if (CHATBOT_DEBUG) console.warn(...args); };
 
+// Helper function to match exact word boundaries to avoid substring collision (e.g., 'ink' in 'thinking', 'pi' in 'recipe')
+function matchWordBoundary(text, word) {
+    if (!text || !word) return false;
+    const escaped = String(word).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp(`(?:^|[^a-zA-Z0-9_])${escaped}(?:$|[^a-zA-Z0-9_])`, 'i').test(text);
+}
+
 // Deterministic local recommender engine for instant, accurate recommendations
 class ToollyRecommender {
     constructor(tools = []) {
@@ -61,8 +68,8 @@ class ToollyRecommender {
             const categories = (tool.categories || []).map(c => c.toLowerCase());
             const badges = (tool.badges || []).map(b => b.toLowerCase());
 
-            // Direct tool name match in query
-            if (nameLower.length > 2 && normalized.includes(nameLower)) {
+            // Direct tool name match in query with word boundary to avoid substring collisions
+            if (nameLower.length > 2 && matchWordBoundary(normalized, nameLower)) {
                 score += 100;
             }
 
@@ -692,10 +699,11 @@ class ToollyAIAdvisor {
                 return `<strong>${found.length} tools found in category '${cat}':</strong><ul>` + found.map(t => `<li><a href='${t.url}' target='_blank'>${t.name}</a></li>`).join('') + '</ul>';
             }
         }
-        // Tool info by name
-        for (const tool of this.toolsData) {
-            if (q.includes(tool.name.toLowerCase())) {
-                return `<strong>${tool.name}</strong><br>${tool.description}<br><a href='${tool.url}' target='_blank'>Visit Tool</a>`;
+        // Tool info by name (sorted by name length descending so specific names match first)
+        const sortedByName = [...this.toolsData].sort((a, b) => (b.name || '').length - (a.name || '').length);
+        for (const tool of sortedByName) {
+            if (tool.name && tool.name.length >= 2 && matchWordBoundary(q, tool.name)) {
+                return `<strong>${this.escapeHtml(tool.name)}</strong><br>${this.escapeHtml(tool.description)}<br><a href='${this.escapeHtml(tool.url)}' target='_blank' rel='noopener'>Visit Tool</a>`;
             }
         }
         // Tag search
@@ -1023,18 +1031,24 @@ Remember: Your recommendations must be strictly based on the AI tools listed on 
             return null;
         }
         
-        // Example: Directly answer questions about tool categories
+        // Directly answer questions about tool categories or catalog
         if (lowerQuery.includes('what ai tools') || lowerQuery.includes('ai tools for')) {
-            return 'Here are some popular AI tools you might find interesting:' +
+            const featuredTools = this.toolsData
+                .filter(t => t.badges && t.badges.includes('featured'))
+                .slice(0, 6);
+            const sampleTools = featuredTools.length ? featuredTools : this.toolsData.slice(0, 6);
+            return '<p>Here are some popular featured AI tools from our directory of 530+ tools:</p>' +
                    '<ul>' +
-                   this.toolsData.map(tool => `<li>${this.escapeHtml(tool.name)}: ${this.escapeHtml(tool.description)}</li>`).join('') +
-                   '</ul>';
+                   sampleTools.map(tool => `<li><strong><a href="${this.escapeHtml(tool.url)}" target="_blank" rel="noopener">${this.escapeHtml(tool.name)}</a></strong>: ${this.escapeHtml(tool.description)}</li>`).join('') +
+                   '</ul>' +
+                   '<p>You can search or filter through all 530+ tools directly using the category sidebar or the search bar above!</p>';
         }
         
-        // Example: Directly answer questions about specific tools
-        for (const tool of this.toolsData) {
-            if (lowerQuery.includes(tool.name.toLowerCase())) {
-                return `The AI tool **${this.escapeHtml(tool.name)}** is designed for ${this.escapeHtml(tool.description)}.`;
+        // Directly answer questions about specific tools
+        const sortedByName = [...this.toolsData].sort((a, b) => (b.name || '').length - (a.name || '').length);
+        for (const tool of sortedByName) {
+            if (tool.name && tool.name.length >= 2 && matchWordBoundary(lowerQuery, tool.name)) {
+                return `The AI tool **${this.escapeHtml(tool.name)}** is designed for ${this.escapeHtml(tool.description)}. You can check it out at <a href="${this.escapeHtml(tool.url)}" target="_blank" rel="noopener">${this.escapeHtml(tool.name)}</a>.`;
             }
         }
         

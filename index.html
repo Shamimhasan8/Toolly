@@ -126,6 +126,12 @@
     <link rel="stylesheet" href="chatbot.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
     <link rel="icon" href="logo/Toolly_logo.png" type="image/png">
+    <script>
+        (function() {
+            var theme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
 </head>
 <body>
     <a class="skip-link" href="#mainContent">Skip to main content</a>
@@ -136,6 +142,16 @@
             <p>Loading amazing AI tools...</p>
         </div>
     </div>
+    <script>
+        // Safety fallback: ensure loading overlay always dismisses cleanly
+        setTimeout(function() {
+            var overlay = document.getElementById('loadingOverlay');
+            if (overlay && overlay.style.display !== 'none') {
+                overlay.classList.add('hidden');
+                setTimeout(function() { overlay.style.display = 'none'; }, 400);
+            }
+        }, 2000);
+    </script>
 
     <button class="sidebar-toggle" id="sidebarToggle" aria-label="Open sidebar" aria-controls="sidebar" aria-expanded="false">
         <i class="fas fa-bars"></i>
@@ -171,8 +187,12 @@
             </nav>
             <nav class="sidebar-categories sidebar-nav">
                 <h3>Navigation</h3>
-                <ul>
+                <ul id="navList">
+                    <li class="active"><a href="index.html" class="sidebar-nav-link"><i class="fas fa-home sidebar-nav-icon"></i>Home Directory</a></li>
+                    <li><a href="studio.html" class="sidebar-nav-link studio-highlight"><i class="fas fa-cube sidebar-nav-icon"></i>Toolly Studio <span class="nav-badge-pill">App</span></a></li>
+                    <li><a href="learn-ai.html" class="sidebar-nav-link"><i class="fas fa-graduation-cap sidebar-nav-icon"></i>Learn AI</a></li>
                     <li><a href="about.html" class="sidebar-nav-link"><i class="fas fa-info-circle sidebar-nav-icon"></i>About Toolly</a></li>
+                    <li><a href="#submit-tool" class="sidebar-nav-link"><i class="fas fa-plus-circle sidebar-nav-icon"></i>Submit a Tool</a></li>
                 </ul>
             </nav>
             <div class="sidebar-about">
@@ -199,9 +219,10 @@
                             <i class="fas fa-graduation-cap"></i>
                             <span>Learn AI</span>
                         </a>
-                        <a class="hero-nav-action" href="" target="_blank" rel="noopener noreferrer" aria-label="Open Toolly Studio">
+                        <a class="hero-nav-action hero-nav-studio" href="studio.html" aria-label="Open Toolly Studio product page">
                             <i class="fas fa-cube"></i>
                             <span>Toolly Studio</span>
+                            <span class="hero-action-tag">App</span>
                         </a>
                     </div>
 
@@ -214,6 +235,7 @@
                         <button class="category-pill" data-group="audio">Audio</button>
                         <button class="category-pill" data-group="developer">Developer</button>
                         <button class="category-pill" data-group="productivity">Productivity</button>
+                        <a href="studio.html" class="category-pill studio-pill" aria-label="Open Toolly Studio interactive utilities"><i class="fas fa-bolt"></i> Toolly Studio</a>
                     </div>
 
                     <!-- Featured Tool Icons -->
@@ -293,6 +315,27 @@
                 </form>
               </div>
             </div>
+
+            <!-- Toolly Studio Spotlight Banner -->
+            <section class="studio-spotlight-banner" id="studioSpotlight" aria-label="Toolly Studio Spotlight">
+                <div class="studio-spotlight-inner">
+                    <div class="studio-spotlight-left">
+                        <div class="studio-spotlight-tag">
+                            <span class="studio-pulse"></span>
+                            <span class="studio-tag-text">TOOLLY STUDIO • UTILITY SUITE</span>
+                        </div>
+                        <h3 class="studio-spotlight-title">Instant Developer & AI Utilities Workspace</h3>
+                        <p class="studio-spotlight-desc">Need quick tools? Access 35+ browser utilities: JSON formatters, Base64 encoder, RegEx tester, QR code generator, password generator, text converters, and AI summarizers.</p>
+                    </div>
+                    <div class="studio-spotlight-right">
+                        <a href="studio.html" class="studio-spotlight-btn" aria-label="Open Toolly Studio interactive suite">
+                            <span>Open Toolly Studio</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
             <section class="tools-catalog-section" aria-labelledby="featured-tools-heading">
                 <div class="section-header">
                     <h2 class="featured-title" id="featured-tools-heading">Featured Tools</h2>
@@ -359,7 +402,7 @@
                 <h3>Quick Links</h3>
                 <ul>
                     <li><a href="learn-ai.html">Learn AI</a></li>
-                    <li><a href="https://toollystudio.streamlit.app/" target="_blank" rel="noopener noreferrer">Toolly Studio</a></li>
+                    <li><a href="studio.html">Toolly Studio</a></li>
                     <li><a href="#submit-tool">Submit a Tool</a></li>
                     <li><a href="privacy.html">Privacy Policy</a></li>
                     <li><a href="terms.html">Terms of Service</a></li>

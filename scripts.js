@@ -1,5 +1,32 @@
-// AI Tools Data (Total: 533 verified tools)
+// AI Tools Data (Total: 534 verified tools)
 const aiTools = [
+    {
+        "name": "Toolly Studio",
+        "description": "Official interactive AI & developer utility studio featuring 35+ tools for text, JSON, converters, calculators, code formatting, and AI summarization.",
+        "categories": [
+            "coding",
+            "productivity",
+            "automation"
+        ],
+        "logo": "logo/Toolly_logo.png",
+        "url": "studio.html",
+        "badges": [
+            "featured",
+            "trending",
+            "free"
+        ],
+        "tags": [
+            "studio",
+            "toolly studio",
+            "developer tools",
+            "converters",
+            "calculators",
+            "generators",
+            "ai utilities",
+            "official",
+            "free"
+        ]
+    },
     {
         "name": "H2O.ai",
         "description": "Open-source AI platform for machine learning and data science with automated ML capabilities.",
@@ -10802,7 +10829,7 @@ function applySavedBrowseState() {
         if (activeCategory) activeCategory.classList.add('active');
     }
 
-    const quickCats = document.querySelectorAll('.hero-quick-categories .category-pill');
+    const quickCats = document.querySelectorAll('.hero-quick-categories button.category-pill');
     if (quickCats && quickCats.length) {
         quickCats.forEach(btn => {
             btn.classList.remove('active');
@@ -10885,7 +10912,7 @@ function applyBrowseStateFromUrl() {
         if (activeCategory) activeCategory.classList.add('active');
     }
 
-    const quickCats = document.querySelectorAll('.hero-quick-categories .category-pill');
+    const quickCats = document.querySelectorAll('.hero-quick-categories button.category-pill');
     if (quickCats && quickCats.length) {
         quickCats.forEach(btn => {
             btn.classList.remove('active');
@@ -10996,7 +11023,7 @@ function initializeStats() {
 function initializeHero() {
     const heroToolIcons = document.getElementById('heroToolIcons');
     const heroCtaBtn = document.getElementById('heroCtaBtn');
-    const quickCats = document.querySelectorAll('.hero-quick-categories .category-pill');
+    const quickCats = document.querySelectorAll('.hero-quick-categories button.category-pill');
     
     // Populate featured tool icons (top 3 featured tools)
     if (heroToolIcons) {
@@ -11175,10 +11202,25 @@ function renderTools(resetPage = true) {
                                   /\b(automation|automate|workflow|rpa|orchestration)\b/.test(nameDesc);
             }
         }
-        const matchesSearch =
-            tool.name.toLowerCase().includes(currentSearch) ||
-            tool.description.toLowerCase().includes(currentSearch) ||
-            (tool.tags && tool.tags.some(tag => tag.toLowerCase().includes(currentSearch)));
+        let matchesSearch = true;
+        if (currentSearch) {
+            const terms = currentSearch.trim().toLowerCase().split(/\s+/).filter(Boolean);
+            if (terms.length > 0) {
+                const nameLower = (tool.name || '').toLowerCase();
+                const descLower = (tool.description || '').toLowerCase();
+                const tagsLower = (tool.tags || []).map(t => t.toLowerCase());
+                const catsLower = (tool.categories || []).map(c => c.toLowerCase());
+                const badgesLower = (tool.badges || []).map(b => b.toLowerCase());
+                
+                matchesSearch = terms.every(term => 
+                    nameLower.includes(term) ||
+                    descLower.includes(term) ||
+                    tagsLower.some(tag => tag.includes(term)) ||
+                    catsLower.some(cat => cat.includes(term)) ||
+                    badgesLower.some(badge => badge.includes(term))
+                );
+            }
+        }
         return matchesCategory && matchesSearch;
     });
     
@@ -11955,7 +11997,7 @@ function resetAllFilters() {
         if (allToolsItem) allToolsItem.classList.add('active');
     }
 
-    const quickCats = document.querySelectorAll('.hero-quick-categories .category-pill');
+    const quickCats = document.querySelectorAll('.hero-quick-categories button.category-pill');
     if (quickCats && quickCats.length) {
         quickCats.forEach(btn => {
             const isAll = btn.dataset.group === 'all';
@@ -12249,12 +12291,22 @@ if (categoryList) {
 const themeToggle = document.getElementById('themeToggle');
 const themeIcon = themeToggle.querySelector('i');
 
-// Check for saved theme preference
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme) {
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    updateThemeIcon(savedTheme);
+function updateThemeColorMeta(theme) {
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    if (metaThemeColor) {
+        metaThemeColor.setAttribute('content', theme === 'dark' ? '#111827' : '#B0DB9C');
+    }
 }
+
+// Check for saved theme preference
+(function applyInitialTheme() {
+    const activeTheme = localStorage.getItem('theme');
+    if (activeTheme) {
+        document.documentElement.setAttribute('data-theme', activeTheme);
+        updateThemeIcon(activeTheme);
+        updateThemeColorMeta(activeTheme);
+    }
+})();
 
 // Theme toggle click handler with enhanced transitions
 themeToggle.addEventListener('click', () => {
@@ -12267,6 +12319,7 @@ themeToggle.addEventListener('click', () => {
     document.documentElement.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
     updateThemeIcon(newTheme);
+    updateThemeColorMeta(newTheme);
     
     // Remove transition class after animation completes
     setTimeout(() => {
@@ -12660,11 +12713,22 @@ let editMode = false;function renderMyTools() {
           renderMyTools();
         }
       };
-                } else if (tool.link) {
-                item.onclick = () => openExternalLink(normalizeCustomToolUrl(tool.link), {
-                    source: 'my_tools',
-                    toolName: tool.name
-                });
+    } else if (tool.link) {
+      const toolUrl = normalizeCustomToolUrl(tool.link);
+      item.setAttribute('role', 'link');
+      item.setAttribute('tabindex', '0');
+      item.setAttribute('aria-label', `Open ${tool.name}`);
+      const launchTool = () => openExternalLink(toolUrl, {
+          source: 'my_tools',
+          toolName: tool.name
+      });
+      item.onclick = launchTool;
+      item.onkeydown = (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              launchTool();
+          }
+      };
       item.style.cursor = 'pointer';
     }
     
@@ -12906,38 +12970,53 @@ if (closeModalBtn && modal && editBtn && toolForm) {
         const originalText = submitBtn.textContent;
         submitBtn.textContent='Submitting...';
         try {
-            const response = await fetch(submissionEndpoint, {
-                method: 'POST',
-                body: new FormData(form)
-            });
-
-            if (!response.ok) {
-                throw new Error(`Submission failed with status ${response.status}`);
+            let submitted = false;
+            try {
+                const response = await fetch(submissionEndpoint, {
+                    method: 'POST',
+                    body: new FormData(form)
+                });
+                if (response.ok || response.type === 'opaque') {
+                    submitted = true;
+                } else {
+                    throw new Error(`Submission returned status ${response.status}`);
+                }
+            } catch (fetchErr) {
+                // If standard fetch was blocked by CORS redirect (common with Google Apps Script web apps), retry with no-cors
+                console.warn('Standard submission attempt hit CORS/network restriction, attempting no-cors fallback:', fetchErr);
+                await fetch(submissionEndpoint, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: new FormData(form)
+                });
+                submitted = true;
             }
 
-            submitBtn.textContent = 'Submitted!';
-            statusEl.textContent = 'Thank you! Your tool has been submitted for review.';
-            statusEl.classList.add('success');
-            toollyAnalytics.track('tool_submission_result', {
-                status: 'success',
-                toolName: nameInput.value.trim(),
-                toolUrl: urlInput.value.trim()
-            });
-            form.reset();
+            if (submitted) {
+                submitBtn.textContent = 'Submitted!';
+                statusEl.textContent = 'Thank you! Your tool has been submitted for review.';
+                statusEl.classList.add('success');
+                toollyAnalytics.track('tool_submission_result', {
+                    status: 'success',
+                    toolName: nameInput.value.trim(),
+                    toolUrl: urlInput.value.trim()
+                });
+                form.reset();
 
-            setTimeout(() => {
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
-                statusEl.textContent = '';
-                statusEl.className = 'form-status';
-            }, 2000);
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                    statusEl.textContent = '';
+                    statusEl.className = 'form-status';
+                }, 3000);
+            }
         } catch (error) {
             console.error('Submission error:', error);
             toollyAnalytics.track('tool_submission_result', {
                 status: 'failure',
                 errorMessage: error && error.message ? error.message : 'unknown_error'
             });
-            statusEl.textContent = 'Sorry, there was an error submitting your form. Please try again.';
+            statusEl.textContent = 'Sorry, there was an error submitting your form. Please try again or reach out to us directly.';
             statusEl.classList.add('error');
             submitBtn.disabled = false;
             submitBtn.textContent = originalText;

@@ -61,12 +61,20 @@
         });
     }
 
+    function updateThemeColorMeta(theme) {
+        const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+        if (metaThemeColor) {
+            metaThemeColor.setAttribute('content', theme === 'dark' ? '#111827' : '#B0DB9C');
+        }
+    }
+
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
         document.documentElement.setAttribute('data-theme', savedTheme);
         if (themeIcon) {
             themeIcon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
         }
+        updateThemeColorMeta(savedTheme);
     }
 
     if (themeToggle) {
@@ -76,6 +84,7 @@
             document.documentElement.classList.add('theme-transitioning');
             document.documentElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
+            updateThemeColorMeta(newTheme);
 
             if (themeIcon) {
                 themeIcon.style.transform = 'rotate(180deg)';

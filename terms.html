@@ -12,6 +12,12 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
     <link rel="icon" href="logo/Toolly_logo.png" type="image/png">
+    <script>
+        (function() {
+            var theme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
     <style>
         .legal-hero {
             background: linear-gradient(135deg, var(--card-bg) 0%, var(--background-color) 100%);
@@ -75,14 +81,14 @@
                 </div>
                 <h2>Toolly</h2>
             </div>
-            <nav class="sidebar-categories">
+            <nav class="sidebar-categories sidebar-nav">
                 <h3>Navigation</h3>
                 <ul id="navList">
-                    <li><a href="learn-ai.html" class="sidebar-nav-link">Learn AI</a></li>
-                    <li><a href="https://toollystudio.streamlit.app/" target="_blank" rel="noopener noreferrer" class="sidebar-nav-link">Toolly Studio</a></li>
-                    <li><a href="index.html" class="sidebar-nav-link">Home</a></li>
-                    <li><a href="about.html" class="sidebar-nav-link">About</a></li>
-                    <li><a href="index.html#submit-tool" class="sidebar-nav-link">Submit a Tool</a></li>
+                    <li><a href="index.html" class="sidebar-nav-link"><i class="fas fa-home sidebar-nav-icon"></i>Home Directory</a></li>
+                    <li><a href="studio.html" class="sidebar-nav-link studio-highlight"><i class="fas fa-cube sidebar-nav-icon"></i>Toolly Studio <span class="nav-badge-pill">App</span></a></li>
+                    <li><a href="learn-ai.html" class="sidebar-nav-link"><i class="fas fa-graduation-cap sidebar-nav-icon"></i>Learn AI</a></li>
+                    <li><a href="about.html" class="sidebar-nav-link"><i class="fas fa-info-circle sidebar-nav-icon"></i>About Toolly</a></li>
+                    <li><a href="index.html#submit-tool" class="sidebar-nav-link"><i class="fas fa-plus-circle sidebar-nav-icon"></i>Submit a Tool</a></li>
                 </ul>
             </nav>
             <div class="sidebar-about">
@@ -137,7 +143,7 @@
                 <h3>Quick Links</h3>
                 <ul>
                     <li><a href="learn-ai.html">Learn AI</a></li>
-                    <li><a href="https://toollystudio.streamlit.app/" target="_blank" rel="noopener noreferrer">Toolly Studio</a></li>
+                    <li><a href="studio.html">Toolly Studio</a></li>
                     <li><a href="index.html#submit-tool">Submit a Tool</a></li>
                     <li><a href="privacy.html">Privacy Policy</a></li>
                     <li><a href="terms.html">Terms of Service</a></li>
